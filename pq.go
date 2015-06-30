@@ -1,11 +1,50 @@
+/*
+package pq is implementation of Priority-Queue.
+
+Synopsis
+	import (
+		"github.com/hideo55/go-pq"
+	)
+
+	type Node struct {
+		depth     int
+		beginNode int
+		endNode   int
+	}
+
+	func main() {
+		pq := pq.NewPriorityQueue(func (a, b interface{}) bool {
+			aVal := a.(*Node)
+			bVal := b.(*Node)
+			if aVal.depth != bVal.depth {
+				return aVal.depth < bVal.depth
+			} else {
+				return aVal.beginNode < bVal.beginNode
+			}
+		})
+
+		pq.Push(&Node{0, 0, 1})
+		pq.Push(&Node{0, 1, 2})
+		
+		...
+
+		item := pq.Pop().(*Node)
+	}
+*/
 package pq
 
 import (
 	"sync"
 )
 
+/*
+CmpFunc is comparator for item in the queue.
+*/
 type CmpFunc func(a, b interface{}) bool
 
+/*
+PQ holds information of Priority-Queue
+*/
 type PQ struct {
 	sync.RWMutex
 	items []interface{}
@@ -13,6 +52,9 @@ type PQ struct {
 	comparator CmpFunc
 }
 
+/*
+NewPriorityQueue returns new priority queue that initialized with item comparator.
+*/
 func NewPriorityQueue(cmp CmpFunc) *PQ {
 	pq := &PQ{size: 0, comparator: cmp}
 	pq.items = make([]interface{}, 1)
@@ -20,10 +62,16 @@ func NewPriorityQueue(cmp CmpFunc) *PQ {
 	return pq
 }
 
+/*
+Len returns 
+*/
 func (pq  *PQ) Len() int {
 	return pq.size
 }
 
+/*
+Push the item into the priority queue.
+*/
 func (pq *PQ) Push(item interface{}) {
 	pq.Lock()
 	pq.items = append(pq.items, item)
@@ -32,6 +80,9 @@ func (pq *PQ) Push(item interface{}) {
 	pq.Unlock()
 }
 
+/*
+Pop and returns the highest priority item from the priority queue.
+*/
 func (pq *PQ) Pop() interface{} {
 	pq.Lock()
 	defer pq.Unlock()
@@ -46,6 +97,9 @@ func (pq *PQ) Pop() interface{} {
 	return head
 }
 
+/*
+Head returns highest priority item from the priority queue.
+*/
 func (pq *PQ) Head() interface{} {
 	pq.RLock()
 	defer pq.RUnlock()

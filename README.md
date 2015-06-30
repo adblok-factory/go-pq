@@ -1,6 +1,8 @@
 pq
 ===
 
+[![Godoc](https://godoc.org/github.com/hideo55/go-pq?status.png)](https://godoc.org/github.com/hideo55/go-pq)
+
 Description
 ------------
 

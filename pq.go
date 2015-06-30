@@ -13,7 +13,7 @@ Synopsis
 	}
 
 	func main() {
-		pq := pq.NewPriorityQueue(func (a, b interface{}) bool {
+		q := pq.NewPriorityQueue(func (a, b interface{}) bool {
 			aVal := a.(*Node)
 			bVal := b.(*Node)
 			if aVal.depth != bVal.depth {
@@ -23,12 +23,12 @@ Synopsis
 			}
 		})
 
-		pq.Push(&Node{0, 0, 1})
-		pq.Push(&Node{0, 1, 2})
+		q.Push(&Node{0, 0, 1})
+		q.Push(&Node{0, 1, 2})
 		
 		...
 
-		item := pq.Pop().(*Node)
+		item := q.Pop().(*Node)
 	}
 */
 package pq

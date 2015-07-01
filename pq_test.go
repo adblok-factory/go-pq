@@ -23,7 +23,11 @@ func TestMain(t *testing.T) {
 	}
 
 	for i := qSize - 1; i >= 0; i-- {
+		head := pq.Head().(*Node)
 		item := pq.Pop().(*Node)
+		if head.priority != item.priority {
+			t.Error("Not match return value form Head() and Pop()")
+		}
 		if item.priority != i {
 			t.Error("Expected", i, "Got", item.priority)
 		}

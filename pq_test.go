@@ -13,6 +13,14 @@ func TestMain(t *testing.T) {
 	pq := NewPriorityQueue(func (a, b interface{}) bool {
 		return a.(*Node).priority < b.(*Node).priority
 	})
+	
+	if pq.Head() != nil {
+		t.Error("Expected", nil, "Got", pq.Head())
+	}
+	if item := pq.Pop(); item != nil {
+		t.Error("Expected", nil, "Got", item)
+	}
+	
 	qSize := 100
 	for i := 0; i < qSize; i++ {
 		pq.Push(&Node{"key", i})

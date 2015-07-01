@@ -1,5 +1,5 @@
 /*
-package pq is implementation of Priority-Queue.
+Package pq is implementation of Priority-Queue.
 
 Synopsis
 	import (

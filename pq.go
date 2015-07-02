@@ -63,10 +63,17 @@ func NewPriorityQueue(cmp CmpFunc) *PQ {
 }
 
 /*
-Len returns 
+Len returns length of queue.
 */
 func (pq  *PQ) Len() int {
 	return pq.size
+}
+
+/*
+Empty returns whether the queue is empty.
+*/
+func (pq *PQ) Empty() bool {
+	return pq.size == 0
 }
 
 /*

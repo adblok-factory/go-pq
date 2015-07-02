@@ -13,6 +13,10 @@ func TestMain(t *testing.T) {
 	pq := NewPriorityQueue(func (a, b interface{}) bool {
 		return a.(*Node).priority < b.(*Node).priority
 	})
+
+	if !pq.Empty() {
+		t.Error("Queue is not empty")
+	}
 	
 	if pq.Head() != nil {
 		t.Error("Expected", nil, "Got", pq.Head())
@@ -29,6 +33,11 @@ func TestMain(t *testing.T) {
 	if pq.Len() != qSize {
 		t.Error("Expected", qSize, "Got", pq.Len())
 	}
+
+	if pq.Empty() {
+		t.Error("Queue is empty")
+	}
+
 
 	for i := qSize - 1; i >= 0; i-- {
 		head := pq.Head().(*Node)

@@ -25,7 +25,7 @@ Synopsis
 
 		q.Push(&Node{0, 0, 1})
 		q.Push(&Node{0, 1, 2})
-		
+
 		...
 
 		item := q.Pop().(*Node)
@@ -47,8 +47,8 @@ PQ holds information of Priority-Queue
 */
 type PQ struct {
 	sync.RWMutex
-	items []interface{}
-	size  int
+	items      []interface{}
+	size       int
 	comparator CmpFunc
 }
 
@@ -56,7 +56,10 @@ type PQ struct {
 NewPriorityQueue returns new priority queue that initialized with item comparator.
 */
 func NewPriorityQueue(cmp CmpFunc) *PQ {
-	pq := &PQ{size: 0, comparator: cmp}
+	pq := &PQ{
+		size:       0,
+		comparator: cmp,
+	}
 	pq.items = make([]interface{}, 1)
 	pq.items[0] = nil
 	return pq
@@ -65,7 +68,7 @@ func NewPriorityQueue(cmp CmpFunc) *PQ {
 /*
 Len returns length of queue.
 */
-func (pq  *PQ) Len() int {
+func (pq *PQ) Len() int {
 	return pq.size
 }
 
@@ -129,14 +132,14 @@ func (pq *PQ) swap(i, j int) {
 func (pq *PQ) reorder(i int) {
 	for i > 1 && pq.less(i/2, i) {
 		pq.swap(i/2, i)
-		i = i /2
+		i = i / 2
 	}
 }
 
 func (pq *PQ) sink(i int) {
-	for 2 * i <= pq.Len() {
+	for 2*i <= pq.Len() {
 		j := 2 * i
-		if j < pq.Len() && pq.less(j, j + 1) {
+		if j < pq.Len() && pq.less(j, j+1) {
 			j++
 		}
 		if !pq.less(i, j) {
